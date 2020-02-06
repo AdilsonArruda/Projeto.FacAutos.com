@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'Photos',
   templateUrl: './componentPhotos.html',
-  styleUrls: [ './componentPhots.css' ]
+  styleUrls: [ './componentPhotos.css' ]
 })
 export class componentPhotos  {
   
