@@ -1,13 +1,16 @@
+
+
+
 .img-thumbnail{
 width: 20%;
 border:2px solid rgb(14, 13, 13);
 margin:9px;
-text-align: center;
+display: inline-block;
  
 }
 .img{
  transition: all 0.3s;
- display: inline-block;
+
 }
 .img:hover  {
 	transform: scale(1.1);
@@ -15,7 +18,7 @@ text-align: center;
 }
 .img-1{
   transition: all 0.3s;
-  display: inline-block;
+  
 }
 .img-1:hover  {
 	transform: scale(1.1);
