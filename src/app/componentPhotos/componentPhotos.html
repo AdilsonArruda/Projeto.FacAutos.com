@@ -1,23 +1,12 @@
 <div class="container">
 	<div class="row">
-		<div class="col-12 col-sm-6">
-      <a href="#">
-        <img class="carro img-fluid"
-          alt="carros"
-          title="carros"
-          src="https://www.arroyodrivingschool.com/img/carros/mustang%20gris.png" />
-      </a>
-    </div>
-		<div class="col-12 col-sm-6">
-      <a href="#">
-        <img
-          class="moto img-fluid"
-          width="100%"
-          alt="carros"
-          title="carros"
-          src="https://pngimage.net/wp-content/uploads/2018/06/moto-png.png" />
-      </a>
-    </div>
+    <!-- Deixando o menu dinamico
+    <item-menu url="https://www.arroyodrivingschool.com/img/carros/mustang%20gris.png"></item-menu>
+    <item-menu url="https://pngimage.net/wp-content/uploads/2018/06/moto-png.png"></item-menu>
+    -->
+    <ng-container *ngFor="let item of menus">
+      <item-menu [url]="item.imagem"></item-menu>
+    </ng-container>
 	</div>
 </div>
 
