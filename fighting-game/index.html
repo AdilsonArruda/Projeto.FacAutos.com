@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Smash Toons - Jogo de Luta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen active">
+            <div class="title-bg">
+                <h1 class="game-title">SUPER SMASH TOONS</h1>
+                <p class="subtitle">Mario vs Sonic vs Looney Tunes</p>
+                <button id="btn-start" class="menu-btn">JOGAR</button>
+                <button id="btn-how-to" class="menu-btn">COMO JOGAR</button>
+                <div class="credits">Criado com HTML5 Canvas</div>
+            </div>
+        </div>
+
+        <!-- How To Play Screen -->
+        <div id="howto-screen" class="screen">
+            <h2 class="screen-title">COMO JOGAR</h2>
+            <div class="howto-content">
+                <div class="controls-panel">
+                    <h3>Jogador 1 (Azul)</h3>
+                    <p><span class="key">W</span> Pular</p>
+                    <p><span class="key">A</span> Esquerda</p>
+                    <p><span class="key">D</span> Direita</p>
+                    <p><span class="key">F</span> Soco</p>
+                    <p><span class="key">G</span> Chute</p>
+                    <p><span class="key">H</span> Especial</p>
+                    <p><span class="key">S</span> Bloquear</p>
+                </div>
+                <div class="controls-panel">
+                    <h3>Jogador 2 (Vermelho)</h3>
+                    <p><span class="key">&uarr;</span> Pular</p>
+                    <p><span class="key">&larr;</span> Esquerda</p>
+                    <p><span class="key">&rarr;</span> Direita</p>
+                    <p><span class="key">J</span> Soco</p>
+                    <p><span class="key">K</span> Chute</p>
+                    <p><span class="key">L</span> Especial</p>
+                    <p><span class="key">&darr;</span> Bloquear</p>
+                </div>
+            </div>
+            <button id="btn-back-howto" class="menu-btn">VOLTAR</button>
+        </div>
+
+        <!-- Character Select Screen -->
+        <div id="select-screen" class="screen">
+            <h2 class="screen-title">SELECIONE SEU LUTADOR</h2>
+            <div class="select-container">
+                <div class="player-select" id="p1-select">
+                    <h3>Jogador 1</h3>
+                    <div class="selected-char" id="p1-preview"></div>
+                    <div class="char-name" id="p1-name">???</div>
+                </div>
+                <div class="char-grid" id="char-grid"></div>
+                <div class="player-select" id="p2-select">
+                    <h3>Jogador 2</h3>
+                    <div class="selected-char" id="p2-preview"></div>
+                    <div class="char-name" id="p2-name">???</div>
+                </div>
+            </div>
+            <div class="select-instructions">
+                <p>Jogador 1: Use <span class="key">A/D</span> para navegar, <span class="key">F</span> para confirmar</p>
+                <p>Jogador 2: Use <span class="key">&larr;/&rarr;</span> para navegar, <span class="key">J</span> para confirmar</p>
+            </div>
+            <button id="btn-fight" class="menu-btn fight-btn" style="display:none;">LUTAR!</button>
+            <button id="btn-back-select" class="menu-btn">VOLTAR</button>
+        </div>
+
+        <!-- Fight Screen -->
+        <div id="fight-screen" class="screen">
+            <canvas id="game-canvas" width="800" height="500"></canvas>
+            <div id="fight-ui">
+                <div class="health-container">
+                    <div class="player-info left">
+                        <div class="player-label" id="p1-fight-name">Player 1</div>
+                        <div class="health-bar">
+                            <div class="health-fill" id="p1-health"></div>
+                        </div>
+                        <div class="special-bar">
+                            <div class="special-fill" id="p1-special"></div>
+                        </div>
+                    </div>
+                    <div class="round-info">
+                        <div id="round-display">Round 1</div>
+                        <div id="timer-display">99</div>
+                    </div>
+                    <div class="player-info right">
+                        <div class="player-label" id="p2-fight-name">Player 2</div>
+                        <div class="health-bar">
+                            <div class="health-fill" id="p2-health"></div>
+                        </div>
+                        <div class="special-bar">
+                            <div class="special-fill" id="p2-special"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="fight-overlay" class="overlay">
+                <div id="overlay-text"></div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <h2 id="winner-text" class="screen-title"></h2>
+            <div id="winner-char"></div>
+            <button id="btn-rematch" class="menu-btn">REVANCHE</button>
+            <button id="btn-menu" class="menu-btn">MENU</button>
+        </div>
+    </div>
+
+    <script src="characters.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
