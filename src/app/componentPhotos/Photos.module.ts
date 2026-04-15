@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { componentPhotos } from './componentPhotos';
-import { PhotoComponent } from './photo.component';
+import { PhotoComponent } from './PhotoComponent';
 
 
 @NgModule({
