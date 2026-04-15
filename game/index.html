@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Super Brawl Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Title Screen -->
+    <div id="title-screen" class="screen active">
+      <h1 class="game-title">Super Brawl<br>Arena</h1>
+      <p class="subtitle">Luta de Personagens</p>
+      <button id="btn-start" class="btn-main">JOGAR</button>
+    </div>
+
+    <!-- Character Select Screen -->
+    <div id="select-screen" class="screen">
+      <h2 class="screen-title">Escolha seu Lutador</h2>
+      <div id="char-grid" class="char-grid"></div>
+      <div id="char-info" class="char-info">
+        <span id="char-name">---</span>
+        <div class="stat-row"><span>ATK</span><div class="stat-bar"><div id="stat-atk" class="stat-fill"></div></div></div>
+        <div class="stat-row"><span>DEF</span><div class="stat-bar"><div id="stat-def" class="stat-fill"></div></div></div>
+        <div class="stat-row"><span>SPD</span><div class="stat-bar"><div id="stat-spd" class="stat-fill"></div></div></div>
+      </div>
+      <button id="btn-fight" class="btn-main" disabled>LUTAR!</button>
+      <button id="btn-back-title" class="btn-secondary">Voltar</button>
+    </div>
+
+    <!-- Fight Screen -->
+    <div id="fight-screen" class="screen">
+      <div class="hud">
+        <div class="hud-player hud-left">
+          <span id="hud-p1-name" class="hud-name"></span>
+          <div class="health-bar-bg"><div id="hud-p1-health" class="health-bar"></div></div>
+          <div class="energy-bar-bg"><div id="hud-p1-energy" class="energy-bar"></div></div>
+        </div>
+        <div id="round-display" class="round-display">Round 1</div>
+        <div class="hud-player hud-right">
+          <span id="hud-p2-name" class="hud-name"></span>
+          <div class="health-bar-bg"><div id="hud-p2-health" class="health-bar"></div></div>
+          <div class="energy-bar-bg"><div id="hud-p2-energy" class="energy-bar"></div></div>
+        </div>
+      </div>
+      <canvas id="arena"></canvas>
+      <div id="fight-overlay" class="fight-overlay"></div>
+      <div class="controls">
+        <div class="controls-left">
+          <button class="ctrl-btn" data-action="left">&larr;</button>
+          <button class="ctrl-btn" data-action="right">&rarr;</button>
+        </div>
+        <div class="controls-right">
+          <button class="ctrl-btn ctrl-atk" data-action="punch">Soco</button>
+          <button class="ctrl-btn ctrl-atk" data-action="kick">Chute</button>
+          <button class="ctrl-btn ctrl-special" data-action="special">Especial</button>
+          <button class="ctrl-btn ctrl-def" data-action="block">Defesa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen">
+      <h2 id="result-title" class="result-title"></h2>
+      <p id="result-subtitle" class="result-subtitle"></p>
+      <button id="btn-rematch" class="btn-main">Revanche</button>
+      <button id="btn-back-select" class="btn-secondary">Escolher Outro</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
