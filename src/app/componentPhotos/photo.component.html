@@ -2,5 +2,6 @@
   <img class="carro img-fluid"
     alt="carros"
     title="carros"
-    [src]="url" />
+    *ngIf="sanitizedUrl"
+    [src]="sanitizedUrl" />
 </a>
