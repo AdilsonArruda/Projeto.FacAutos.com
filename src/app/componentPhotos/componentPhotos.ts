@@ -12,6 +12,6 @@ export class componentPhotos  {
     imagem: 'https://www.arroyodrivingschool.com/img/carros/mustang%20gris.png'
   },{
     titulo: 'Motos',
-    imagem: 'https://pngimage.net/wp-content/uploads/2018/06/moto-png.png'
+    imagem: 'https://www.freeiconspng.com/uploads/motorcycle-png-2.png'
   }];
 }

@@ -1,5 +1,33 @@
-/* Add application styles & imports to this file! */
-.img1{
-   width:20%;
-  z-index: -1px;
+/* Global styles */
+body {
+  padding-top: 56px;
+}
+
+.jumbotron {
+  background-color: #e9ecef;
+  margin-bottom: 2rem;
+}
+
+.jumbotron h1 {
+  font-weight: 300;
+}
+
+.jumbotron .lead {
+  font-size: 1.25rem;
+  color: #6c757d;
+}
+
+footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 2rem;
+}
+
+footer p {
+  color: #999;
+}
+
+.img1 {
+  width: 20%;
 }

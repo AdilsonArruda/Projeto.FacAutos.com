@@ -1,24 +1,7 @@
 <div class="container">
-	<div class="row">
-    <!-- Deixando o menu dinamico
-    <item-menu url="https://www.arroyodrivingschool.com/img/carros/mustang%20gris.png"></item-menu>
-    <item-menu url="https://pngimage.net/wp-content/uploads/2018/06/moto-png.png"></item-menu>
-    -->
+  <div class="row">
     <ng-container *ngFor="let item of menus">
-      <item-menu [url]="item.imagem"></item-menu>
+      <item-menu [url]="item.imagem" [titulo]="item.titulo"></item-menu>
     </ng-container>
-	</div>
+  </div>
 </div>
-
-
-<!--
-<div class="imagens ">
-	<div class=" img">
-		<a href="xxx"><img class="img-thumbnail" alt="carros" src="https://www.arroyodrivingschool.com/img/carros/mustang%20gris.png" title="carros" /></a>
-	</div>
-
-	<div class="img-1">
-		<a href="xxx"><img class="img-thumbnail" alt="Motos" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjjlN9d7rqHpZjXkzvYX_KJErEwWS9K4VAsHvB3wLy5tekEZVj" title="Motos" /></a>
-	</div>
-</div>
--->
