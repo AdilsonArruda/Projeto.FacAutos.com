@@ -1,0 +1,258 @@
+<!-- Quiz Start Screen -->
+<div *ngIf="!quizStarted && !quizFinished && !reviewMode" class="quiz-start-screen">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card start-card">
+          <div class="card-body text-center">
+            <div class="quiz-icon">
+              <span class="databricks-logo">&#9670;</span>
+            </div>
+            <h1 class="quiz-title">Databricks Data Engineer Associate</h1>
+            <p class="quiz-subtitle">Simulado baseado no ExamTopics</p>
+
+            <div class="exam-info">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="info-item">
+                    <span class="info-number">{{questions.length}}</span>
+                    <span class="info-label">Quest&otilde;es</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="info-item">
+                    <span class="info-number">120</span>
+                    <span class="info-label">Minutos</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="info-item">
+                    <span class="info-number">70%</span>
+                    <span class="info-label">Para Aprovar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="categories-preview">
+              <h5>Categorias do Exame:</h5>
+              <ul class="list-unstyled">
+                <li><span class="badge badge-cat cat-1">24%</span> Databricks Lakehouse Platform</li>
+                <li><span class="badge badge-cat cat-2">29%</span> ELT with Spark SQL and Python</li>
+                <li><span class="badge badge-cat cat-3">22%</span> Incremental Data Processing</li>
+                <li><span class="badge badge-cat cat-4">16%</span> Production Pipelines</li>
+                <li><span class="badge badge-cat cat-5">9%</span> Data Governance</li>
+              </ul>
+            </div>
+
+            <button class="btn btn-start" (click)="startQuiz()">
+              Iniciar Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz Questions Screen -->
+<div *ngIf="quizStarted && !quizFinished && !reviewMode" class="quiz-active">
+  <div class="container">
+    <!-- Header with timer and progress -->
+    <div class="quiz-header">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <span class="badge badge-category">{{currentQuestion.category}}</span>
+        </div>
+        <div class="col-md-4 text-center">
+          <span class="question-counter">
+            Quest&atilde;o {{currentQuestionIndex + 1}} de {{questions.length}}
+          </span>
+        </div>
+        <div class="col-md-4 text-right">
+          <span class="timer" [class.timer-warning]="timeRemaining < 600" [class.timer-danger]="timeRemaining < 120">
+            &#9200; {{formattedTime}}
+          </span>
+        </div>
+      </div>
+      <div class="progress mt-2">
+        <div class="progress-bar progress-bar-custom"
+             role="progressbar"
+             [style.width.%]="progressPercentage">
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Card -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <div class="card question-card">
+          <div class="card-body">
+            <h5 class="question-text">{{currentQuestion.question}}</h5>
+
+            <div class="options-list">
+              <div *ngFor="let option of currentQuestion.options; let i = index"
+                   class="option-item"
+                   [class]="getOptionClass(i)"
+                   (click)="selectAnswer(i)">
+                <span class="option-letter">{{['A','B','C','D','E'][i]}}</span>
+                <span class="option-text">{{option}}</span>
+                <span *ngIf="answeredCurrent && i === currentQuestion.correctAnswer" class="result-icon correct-icon">&#10004;</span>
+                <span *ngIf="answeredCurrent && selectedAnswer === i && i !== currentQuestion.correctAnswer" class="result-icon incorrect-icon">&#10008;</span>
+              </div>
+            </div>
+
+            <!-- Explanation -->
+            <div *ngIf="showExplanation" class="explanation-box">
+              <h6>Explica&ccedil;&atilde;o:</h6>
+              <p>{{currentQuestion.explanation}}</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="question-actions">
+              <button *ngIf="!answeredCurrent"
+                      class="btn btn-confirm"
+                      [disabled]="selectedAnswer === null"
+                      (click)="confirmAnswer()">
+                Confirmar Resposta
+              </button>
+              <button *ngIf="answeredCurrent && currentQuestionIndex < questions.length - 1"
+                      class="btn btn-next"
+                      (click)="nextQuestion()">
+                Pr&oacute;xima Quest&atilde;o
+              </button>
+              <button *ngIf="answeredCurrent && currentQuestionIndex === questions.length - 1"
+                      class="btn btn-finish"
+                      (click)="finishQuiz()">
+                Finalizar Quiz
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Results Screen -->
+<div *ngIf="quizFinished && !reviewMode" class="quiz-results">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card results-card">
+          <div class="card-body text-center">
+            <h2 class="results-title">Resultado do Quiz</h2>
+
+            <div class="score-circle" [class.passed]="totalScore >= passingScore" [class.failed]="totalScore < passingScore">
+              <span class="score-value">{{totalScore}}%</span>
+              <span class="score-label">Pontua&ccedil;&atilde;o</span>
+            </div>
+
+            <div class="pass-status">
+              <h3 *ngIf="totalScore >= passingScore" class="text-success">
+                Aprovado!
+              </h3>
+              <h3 *ngIf="totalScore < passingScore" class="text-danger">
+                N&atilde;o Aprovado
+              </h3>
+              <p class="pass-info">
+                Acertou {{answers | filterCorrect}} de {{questions.length}} quest&otilde;es
+                (M&iacute;nimo para aprovar: {{passingScore}}%)
+              </p>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div class="category-breakdown">
+              <h5>Desempenho por Categoria:</h5>
+              <div *ngFor="let cat of categoryScores" class="category-item">
+                <div class="category-header">
+                  <span class="category-name">{{cat.category}}</span>
+                  <span class="category-score">{{cat.correct}}/{{cat.total}} ({{cat.percentage}}%)</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar"
+                       [class]="getCategoryBarClass(cat.percentage)"
+                       role="progressbar"
+                       [style.width.%]="cat.percentage">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="results-actions">
+              <button class="btn btn-review" (click)="startReview()">
+                Revisar Respostas
+              </button>
+              <button class="btn btn-restart" (click)="restartQuiz()">
+                Novo Quiz
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Mode -->
+<div *ngIf="reviewMode" class="quiz-review">
+  <div class="container">
+    <div class="quiz-header">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <button class="btn btn-back" (click)="backToResults()">
+            &larr; Voltar aos Resultados
+          </button>
+        </div>
+        <div class="col-md-4 text-center">
+          <span class="badge badge-category">{{currentQuestion.category}}</span>
+        </div>
+        <div class="col-md-4 text-right">
+          <span class="question-counter">
+            Quest&atilde;o {{currentQuestionIndex + 1}} de {{questions.length}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <div class="card question-card">
+          <div class="card-body">
+            <h5 class="question-text">{{currentQuestion.question}}</h5>
+
+            <div class="options-list">
+              <div *ngFor="let option of currentQuestion.options; let i = index"
+                   class="option-item review-option"
+                   [class]="getOptionClass(i)">
+                <span class="option-letter">{{['A','B','C','D','E'][i]}}</span>
+                <span class="option-text">{{option}}</span>
+                <span *ngIf="i === currentQuestion.correctAnswer" class="result-icon correct-icon">&#10004;</span>
+                <span *ngIf="getAnswerForQuestion(currentQuestion.id)?.selectedAnswer === i && i !== currentQuestion.correctAnswer" class="result-icon incorrect-icon">&#10008;</span>
+              </div>
+            </div>
+
+            <div class="explanation-box">
+              <h6>Explica&ccedil;&atilde;o:</h6>
+              <p>{{currentQuestion.explanation}}</p>
+            </div>
+
+            <div class="review-nav">
+              <button class="btn btn-nav"
+                      [disabled]="currentQuestionIndex === 0"
+                      (click)="previousQuestion()">
+                &larr; Anterior
+              </button>
+              <button class="btn btn-nav"
+                      [disabled]="currentQuestionIndex === questions.length - 1"
+                      (click)="nextQuestion()">
+                Pr&oacute;xima &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

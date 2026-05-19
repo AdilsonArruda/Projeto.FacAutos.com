@@ -3,8 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  //styleUrls: [  ]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
   title = 'FacAutos.com';
+  currentPage = 'home';
+
+  navigateTo(page: string) {
+    this.currentPage = page;
+  }
 }
