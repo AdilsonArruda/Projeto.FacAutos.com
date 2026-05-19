@@ -1,3 +1,23 @@
-p {
-  font-family: Lato;
+.quiz-nav-link {
+  padding: 0 !important;
+}
+
+.quiz-badge {
+  background: linear-gradient(135deg, #FF3621 0%, #FF6B35 100%);
+  color: #fff !important;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.quiz-badge:hover {
+  box-shadow: 0 4px 15px rgba(255, 54, 33, 0.4);
+  transform: translateY(-1px);
+}
+
+.quiz-page-wrapper {
+  margin-top: 56px;
 }

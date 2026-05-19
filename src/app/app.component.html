@@ -18,8 +18,8 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <li class="nav-item" [class.active]="currentPage === 'home'">
+            <a class="nav-link" href="javascript:void(0)" (click)="navigateTo('home')">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Autos</a>
@@ -27,7 +27,11 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Motos</a>
           </li>
-          
+          <li class="nav-item" [class.active]="currentPage === 'quiz'">
+            <a class="nav-link quiz-nav-link" href="javascript:void(0)" (click)="navigateTo('quiz')">
+              <span class="quiz-badge">Quiz Databricks</span>
+            </a>
+          </li>
           
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -37,7 +41,8 @@
       </div>
     </nav>
 
-    <main role="main">
+    <!-- Home Page -->
+    <main role="main" *ngIf="currentPage === 'home'">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
@@ -63,8 +68,13 @@
 
     </main>
 
-    <footer class="container">
-      <p>© Company 2017-2018</p>
+    <!-- Quiz Page -->
+    <div *ngIf="currentPage === 'quiz'" class="quiz-page-wrapper">
+      <app-quiz></app-quiz>
+    </div>
+
+    <footer class="container" *ngIf="currentPage === 'home'">
+      <p>&copy; Company 2017-2018</p>
     </footer>
 
 
